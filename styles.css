@@ -1,0 +1,18 @@
+body {
+    background-image: url("../Background/livro.jpg");
+    background-color: #017199;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+h2, h1 {
+    font-family: sans-serif;
+}
+#header {
+    font-size: 3rem;
+}
+.booklist {
+    margin-top: 50px;
+    visibility: hidden;
+}
