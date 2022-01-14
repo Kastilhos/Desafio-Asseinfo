@@ -69,7 +69,7 @@ $(document).ready(function() {
                             <div class="col-md-8">
                                     <div class="card-body">
                                     <h5 class="card-title">${title}</h5>
-                                    <p class="card-text">Author: ${author}</p>
+                                    <p class="card-text">Author: ${authors}</p>
                                     <p class="card-text">Publisher: ${publisher}</p>
                                     </div>
                                 </div>
