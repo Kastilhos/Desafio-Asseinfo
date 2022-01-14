@@ -37,7 +37,7 @@ $(document).ready(function() {
         for(var i = 0; i < res.items.length; i+=2) {
             item = res.items[i];
             title1 = item.volumeInfo.title;
-            author1 = item.volumeInfo.authors;
+            authors1 = item.volumeInfo.authors;
             publisher1 = item.volumeInfo.publisher;
             bookLink1 = item.volumeInfo.previewLink;
             bookIsbn1 = item.volumeInfo.industryIdentifiers[1].identifier
@@ -45,7 +45,7 @@ $(document).ready(function() {
             
             item2 = res.items[i+1];
             title2 = item2.volumeInfo.title;
-            author2 = item2.volumeInfo.authors;
+            authors2 = item2.volumeInfo.authors;
             publisher2 = item2.volumeInfo.publisher;
             bookLink2 = item2.volumeInfo.previewLink;
             bookIsbn2 = item2.volumeInfo.industryIdentifiers[1].identifier
