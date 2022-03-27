@@ -23,36 +23,48 @@ $(document).ready(function() {
         },
     ];
     var valor;    
-    const valorSacado = valor;
+    const valorSacado = parseInt($("#campo-saque").val());
 
     $("#saque").click(function() {
-        valor = $("#campo-saque").val();
-        if (!Number.isInteger(valor) || valor < 0) {
-            displayError();  
+        valor = parseInt($("#campo-saque").val());
+        if (Number.isInteger(valor) && valor > 0) {
+            transacao(cedulas)
         } else {
-            let transacao = function calc(cedula, n = 0) {
-                while (valor > 0){
-                    if (valor > cedula[n].valorCed) {
-                        valor -= cedula[n].valorCed;
-                        cedula[n].quant++
-                        calc(cedula, n)
-                    } else if (valor < cedula[n].valorCed) {                    
-                        calc(cedula, n+1)
-                    } else {
-                        valor -= cedula[n].valorCed;
-                        cedula[n].quant++
-                        calc(cedula, n+1)
-                    };
-                };
-                return cedula;
-            };
-            console.log(valorSacado)
-            return transacao(cedulas)
+            displayError();  
         };
         $("#campo-saque").val("");
     })
+
+    function transacao(cedula, n = 0) {
+        while (valor > 0){
+            if (valor > cedula[n].valorCed) {
+                valor -= cedula[n].valorCed;
+                cedula[n].quant++
+                transacao(cedula, n)
+            } else if (valor < cedula[n].valorCed) {                    
+                transacao(cedula, n+1)
+            } else {
+                valor -= cedula[n].valorCed;
+                cedula[n].quant++
+                transacao(cedula, n+1)
+            };
+        };        
+        console.log("teste")
+        saidaRecibo.innerHTML = mostraRecibo();
+    };
     function mostraRecibo() {
+        let folhaRecibo = `<h1>Total sacado: ${valorSacado}.
+        <ul>`
+        for (let i = 0; i < cedulas.length; i++) {
+            if (cedulas[i].quant > 0) {
+                folhaRecibo += ` <li>Notas de ${cedulas[i].valorCed}: ${cedulas[i].quant}</li>`;
+            }
+        }
+        folhaRecibo += `</ul>`
+        return folhaRecibo
 
     }
-    console.log(saque(1393))
+    function displayError() {
+        alert("Search term cannot be empty");
+    }
 })
