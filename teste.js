@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     let saidaRecibo = document.getElementById("recibo");
     const cedulas = [
         {
@@ -34,7 +35,7 @@ $(document).ready(function() {
             displayError();  
         };
         $("#campo-saque").val("");
-    })
+    });
 
     function transacao(cedula, n = 0) {
         while (valor > 0){
@@ -53,19 +54,20 @@ $(document).ready(function() {
         console.log("teste")
         saidaRecibo.innerHTML = mostraRecibo();
     };
+
     function mostraRecibo() {
         let folhaRecibo = `<h1>Valor do saque: ${valorSacado}.
-        <ul>`
+        <ul>`;
         for (let i = 0; i < cedulas.length; i++) {
             if (cedulas[i].quant > 0) {
                 folhaRecibo += ` <li>Notas de ${cedulas[i].valorCed}: ${cedulas[i].quant}</li>`;
-            }
-        }
-        folhaRecibo += `</ul>`
-        return folhaRecibo
-
+            };
+        };
+        folhaRecibo += `</ul>`;
+        return folhaRecibo;
     };
+
     function displayError() {
         alert("Quantia inválida");
     };
-})
+});
