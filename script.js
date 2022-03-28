@@ -1,84 +1,71 @@
 $(document).ready(function() {
-    let item, title, author, publisher, bookLink, bookImg;
-    let outputList = document.getElementById("list-output");
-    let bookUrl = "https://www.googleapis.com/books/v1/volumes?q="
-    let placeHolder = '<img src="https://via.placeholder.com/150">'
-    var searchData;
+    let saidaRecibo = document.getElementById("recibo");
+    const cedulas = [
+        {
+            valorCed: 100,
+            quant: 0
+        },
+        {
+            valorCed: 50,
+            quant: 0
+        },
+        {
+            valorCed: 10,
+            quant: 0
+        },
+        {
+            valorCed: 5,
+            quant: 0
+        },
+        {
+            valorCed: 1,
+            quant: 0
+        },
+    ];
+    var valorSacado;
+    var valor;
 
-    $("#search").click(function() {
-        outputList.innerHTML = ""
-        searchData = $("#search-box").val();
-        if(searchData === "" || searchData === null) {
-            displayError();        
-        }
-        else {
-            $.ajax({
-                url: bookUrl + searchData,
-                dataType: "json",
-                success: function(response) {
-                    console.log(response)
-                    if (response.totalItem === 0) {
-                        alert("no results!");
-                    }
-                    else {
-                        $("title").animate({'margin-top': '10px'}, 1000);
-                        $(".booklist").css("visibility", "visible");
-                        displayResults(response);
-                    }
-                },
-                error: function() {
-                    alert("Something went wrong!");
-                }
-            })
-        }
-        $("#search-box").val("");
-    });
-    function displayResults(res) {
-        for(var i = 0; i < res.items.length; i+=2) {
-            item = res.items[i];
-            title1 = item.volumeInfo.title;
-            authors1 = item.volumeInfo.authors;
-            publisher1 = item.volumeInfo.publisher;
-            bookLink1 = item.volumeInfo.previewLink;
-            bookIsbn1 = item.volumeInfo.industryIdentifiers[1].identifier
-            bookImg1 = (item.volumeInfo.imageLinks) ? item.volumeInfo.imageLinks.thumbnail : placeHolder;
-            
-            item2 = res.items[i+1];
-            title2 = item2.volumeInfo.title;
-            authors2 = item2.volumeInfo.authors;
-            publisher2 = item2.volumeInfo.publisher;
-            bookLink2 = item2.volumeInfo.previewLink;
-            bookIsbn2 = item2.volumeInfo.industryIdentifiers[1].identifier
-            bookImg2 = (item2.volumeInfo.imageLinks) ? item2.volumeInfo.imageLinks.thumbnail : placeHolder;
-        
-            outputList.innerHTML += '<div class="row mt-4">' +
-                                    formatOutput(bookImg1, title1, authors1, publisher1,bookLink1, bookIsbn1, bookImg1)+
-                                    formatOutput(bookImg2, title2, authors2, publisher2,bookLink2, bookIsbn2, bookImg2)+
-                                    '</div>'
+    $("#saque").click(function() { //Checa se o valor solicitado é válido e chama as devidas funções
+        valorSacado = parseInt($("#campo-saque").val());
+        valor = valorSacado;
+        if (Number.isInteger(valor) && valor > 0) {
+            transacao(cedulas)
+        } else {
+            displayError();  
+        };
+        $("#campo-saque").val("");
+    })
 
+    function transacao(cedula, n = 0) { //Parte do desafio - Função que conta as cédulas
+        while (valor > 0){
+            if (valor > cedula[n].valorCed) {
+                valor -= cedula[n].valorCed;
+                cedula[n].quant++
+                transacao(cedula, n)
+            } else if (valor < cedula[n].valorCed) {                    
+                transacao(cedula, n+1)
+            } else {
+                valor -= cedula[n].valorCed;
+                cedula[n].quant++
+                transacao(cedula, n+1)
+            };
+        };        
+        console.log("teste")
+        saidaRecibo.innerHTML = mostraRecibo();
+    };
+    function mostraRecibo() { //Apresenta para o usuário o valor sacado, e a quantidade de notas.
+        let folhaRecibo = `<h1>Valor do saque: ${valorSacado}.
+        <ul>`
+        for (let i = 0; i < cedulas.length; i++) {
+            if (cedulas[i].quant > 0) {
+                folhaRecibo += ` <li>Notas de ${cedulas[i].valorCed}: ${cedulas[i].quant}</li>`;
+            }
         }
-    }
-    function formatOutput(bookImg, title, authors, publisher, bookLink, bookIsbn) {
-        let viewerUrl = 'book.html?isbn' +bookIsbn;
-        let htmlCard = `<div class="col-lg-6">
-                        <div class="card" style="">
-                        <div class="row no-gutters">
-                            <div class="col-md-4">
-                                <img src="${bookImg}" class="card-img" alt="...">
-                            </div>
-                            <div class="col-md-8">
-                                    <div class="card-body">
-                                    <h5 class="card-title">${title}</h5>
-                                    <p class="card-text">Author: ${authors}</p>
-                                    <p class="card-text">Publisher: ${publisher}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>`
-                    return htmlCard;
+        folhaRecibo += `</ul>`
+        return folhaRecibo
+
     }
     function displayError() {
-        alert("Search term cannot be empty");
+        alert("Quantia inválida!");
     }
-});
+})
