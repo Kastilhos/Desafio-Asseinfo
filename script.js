@@ -25,7 +25,7 @@ $(document).ready(function() {
     var valorSacado;
     var valor;
 
-    $("#saque").click(function() { //Checa se o valor solicitado é válido e chama as devidas funções
+    $("#saque").click(function() {
         valorSacado = parseInt($("#campo-saque").val());
         valor = valorSacado;
         if (Number.isInteger(valor) && valor > 0) {
@@ -36,7 +36,7 @@ $(document).ready(function() {
         $("#campo-saque").val("");
     })
 
-    function transacao(cedula, n = 0) { //Parte do desafio - Função que conta as cédulas
+    function transacao(cedula, n = 0) {
         while (valor > 0){
             if (valor > cedula[n].valorCed) {
                 valor -= cedula[n].valorCed;
@@ -53,7 +53,7 @@ $(document).ready(function() {
         console.log("teste")
         saidaRecibo.innerHTML = mostraRecibo();
     };
-    function mostraRecibo() { //Apresenta para o usuário o valor sacado, e a quantidade de notas.
+    function mostraRecibo() {
         let folhaRecibo = `<h1>Valor do saque: ${valorSacado}.
         <ul>`
         for (let i = 0; i < cedulas.length; i++) {
@@ -64,8 +64,8 @@ $(document).ready(function() {
         folhaRecibo += `</ul>`
         return folhaRecibo
 
-    }
+    };
     function displayError() {
-        alert("Quantia inválida!");
-    }
+        alert("Quantia inválida");
+    };
 })
