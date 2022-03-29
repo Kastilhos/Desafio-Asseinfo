@@ -56,11 +56,11 @@ $(document).ready(function() {
     };
 
     function mostraRecibo() { //Apresenta valor sacado e quantia de cédulas
-        let folhaRecibo = `<h1>Valor do saque: ${valorSacado}.
+        let folhaRecibo = `<h1 id="valor-recibo">Total: R$ ${valorSacado},00
         <ul>`;
         for (let i = 0; i < cedulas.length; i++) {
             if (cedulas[i].quant > 0) {
-                folhaRecibo += ` <li>Notas de ${cedulas[i].valorCed}: ${cedulas[i].quant}</li>`;
+                folhaRecibo += ` <li id="texto-recibo">Notas de ${cedulas[i].valorCed}: ${cedulas[i].quant}</li>`;
             };
         };
         folhaRecibo += `</ul>`;

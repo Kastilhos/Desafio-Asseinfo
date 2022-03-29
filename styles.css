@@ -6,21 +6,56 @@ body {
 h2, h1 {
     font-family: sans-serif;
 }
-#titulo-atm {
-    font-size: 3rem;
+#corpo {
+    background-color: dimgray;
+    width: 50vw;
+    height: 100vh;
+    margin: auto;
+}
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#painel-atm {
+    background-color: white;
+    color: black;
+    margin-top: 1vh;
+    margin-bottom: 3vh;
+    border: solid;
+    border-color: black;
+    border-width: 5px;
+    width: 50vw;
+    height: 10vw;
+    text-align: center;
+    box-shadow: inset 0 0 50px #fff,      /* inner white */
+    inset 20px 0 80px #fff,               /* inner left magenta short */
+    inset -20px 0 80px #fff,              /* inner right cyan short */
+    inset 20px 0 300px #fff,              /* inner left magenta broad */
+    inset -20px 0 300px #fff,             /* inner right cyan broad */
+    0 0 50px #fff,                        /* outer white */
+    -10px 0 80px #fff,                    /* outer left magenta */
+    10px 0 80px #fff;                     /* outer right cyan */
+}
+#titulo {
+    line-height: 10vw;    
+    font-size: 10rem;
 }
 #moldura {
     border: solid;
     border-radius: 50px;
     border-color: darkgray;
     background-color: darkgray;
-    height: 80vh;
-    width: 50vw;
+    height: 65vh;
+    width: 40vw;
     margin: auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 #tela {
     width: 90%;
-    height: 90%;
+    height: 85%;
     background-color: black;
     margin: auto;
 }
@@ -28,6 +63,13 @@ h2, h1 {
     text-align: center;
     margin: auto;
     font-size: 5ch;
+    color: #008F11;
+}
+#valor-recibo {
+    font-size: 1.4rem
+}
+#texto-recibo {
+    font-size: 1rem;
 }
 #input-tela {
     width: 50%;
